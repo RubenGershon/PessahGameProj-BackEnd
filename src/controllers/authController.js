@@ -1,20 +1,20 @@
 import authModel from "../models/authModel.js";
 
 async function signUp(req, res) {
-  console.log("signedUp")
+  console.log("signedUp");
 }
 
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).send("email or password missing");
+      res.status(400).json("email or password missing");
       return;
     }
 
     const user = await authModel.login(email, password);
-    if (!user) {
-      res.status(401).send("invalid email or password");
+    if (user.length === 0) {
+      res.status(401).json("invalid email or password");
       return;
     }
 

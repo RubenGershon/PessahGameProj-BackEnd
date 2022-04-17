@@ -9,7 +9,7 @@ const knexConfig = {
   client: "mysql",
   connection: {
     database: "gaming_proj",
-    user: "ruben",
+    user: "admin",
     password: "6kxVUSFn8BB",
   },
   pool: {
