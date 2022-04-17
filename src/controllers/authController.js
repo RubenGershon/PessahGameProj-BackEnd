@@ -1,7 +1,9 @@
 import authModel from "../models/authModel.js";
 
-async function signUp(req, res) {
-  console.log("signedUp");
+async function signup(req, res) {
+  const response = await authModel.signup(req.body);
+  if (response.status === "ok") res.send(response);
+  else res.status(401).json(response);
 }
 
 async function login(req, res, next) {
@@ -28,4 +30,4 @@ async function logout(req, res) {
   console.log("logOut");
 }
 
-export default { signUp, login, logout };
+export default { signup, login, logout };
