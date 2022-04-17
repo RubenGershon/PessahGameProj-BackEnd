@@ -5,7 +5,7 @@ async function signup(newUser) {
     const user = await gamingAppDb.from("users").insert(newUser);
     return { status: "ok", newUserId: user };
   } catch (err) {
-      return { status: "error", message: err.sqlMessage }
+    return { status: "error", message: err.sqlMessage };
   }
 }
 
@@ -20,4 +20,15 @@ async function login(email, password) {
   }
 }
 
-export default { login, signup };
+async function getUserByEmail(email) {
+  try {
+      const user = await gamingAppDb
+          .from("users")
+          .where({ email: email });
+    return user;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export default { login, signup, getUserByEmail };
