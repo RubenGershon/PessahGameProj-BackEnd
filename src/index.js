@@ -23,3 +23,5 @@ gamingAppDb.migrate
     }
   })
   .catch((err) => console.log(err));
+
+export { gamingAppDb }
