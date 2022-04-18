@@ -1,4 +1,5 @@
 import { gamingAppDb } from "../index.js";
+import bcrypt from "bcrypt";
 
 async function signup(newUser) {
   try {
@@ -11,20 +12,24 @@ async function signup(newUser) {
 
 async function login(email, password) {
   try {
-    const user = await gamingAppDb
-      .from("users")
-      .where({ email: email, password: password });
-    return user;
+    const user = await gamingAppDb.from("users").where({ email: email });
+
+    if (user && user.length !== 0) {
+      const validPassword = await bcrypt.compare(password, user[0].password);
+      if (validPassword) {
+        return { status: "success", user: user };
+      } else {
+        return { status: "error", user: "wrong password" };
+      }
+    } else return { status: "error", user: "wrong email - user not found" };
   } catch (err) {
-    console.log(err);
+    return err;
   }
 }
 
 async function getUserByEmail(email) {
   try {
-      const user = await gamingAppDb
-          .from("users")
-          .where({ email: email });
+    const user = await gamingAppDb.from("users").where({ email: email });
     return user;
   } catch (err) {
     console.log(err);
