@@ -3,6 +3,7 @@ import knex from "knex";
 import express from "express";
 import knexConfig from "./data/knexfile.js";
 import authRoutes from "./routes/authRoutes.js";
+import scoreRoutes from "./routes/scoreRoutes.js";
 
 const gamingAppDb = knex(knexConfig);
 
@@ -10,7 +11,9 @@ const app = new express();
 
 app.use(express.json());
 app.use(cors());
+
 app.use("/auth", authRoutes);
+app.use("/score", scoreRoutes);
 
 gamingAppDb.migrate
   .latest()
