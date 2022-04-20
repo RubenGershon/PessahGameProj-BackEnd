@@ -10,24 +10,27 @@ async function add(newScore) {
 }
 
 async function getLastScore(userEmail) {
-  try {
-    const scores = await gamingAppDb
-      .from("user_scores")
-      .where({ email: userEmail });
-    const score = findLast(scores);
-    return { status: "ok", lastScore: score };
-  } catch (err) {
-    return { status: "error", message: err.sqlMessage };
-  }
+  const response = await getScoresByUser(userEmail);
+  if (response.status === "error") return response;
+
+  const score = findLast(response.scores);
+  return { status: "ok", lastScore: score };
 }
 
 async function getHighScore(userEmail) {
+  const response = await getScoresByUser(userEmail);
+  if (response.status === "error") return response;
+
+  const score = findHighest(response.scores);
+  return { status: "ok", lastScore: score };
+}
+
+async function getScoresByUser(userEmail) {
   try {
     const scores = await gamingAppDb
       .from("user_scores")
       .where({ email: userEmail });
-    const score = findHighest(scores);
-    return { status: "ok", lastScore: score };
+    return { status: "ok", scores: scores };
   } catch (err) {
     return { status: "error", message: err.sqlMessage };
   }
