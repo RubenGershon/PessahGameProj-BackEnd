@@ -22,7 +22,7 @@ async function getHighScore(userEmail) {
   if (response.status === "error") return response;
 
   const score = findHighest(response.scores);
-  return { status: "ok", lastScore: score };
+  return { status: "ok", highestScore: score };
 }
 
 async function getScoresByUser(userEmail) {
