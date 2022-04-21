@@ -3,7 +3,7 @@ function inputValidation(req, res, next) {
   if (!email || !password) {
     res
       .status(400)
-      .json({ status: "error", message: "email or password missing" });
+      .json({ status: "error", message: "Email or password missing" });
   } else next();
 }
 

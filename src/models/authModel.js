@@ -19,9 +19,9 @@ async function login(email, password) {
       if (validPassword) {
         return { status: "ok", user: user };
       } else {
-        return { status: "error", user: "wrong password" };
+        return { status: "error", message: "Wrong password" };
       }
-    } else return { status: "error", user: "wrong email - user not found" };
+    } else return { status: "error", message: "Wrong email - user not found" };
   } catch (err) {
     return err;
   }
