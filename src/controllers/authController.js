@@ -2,7 +2,7 @@ import authModel from "../models/authModel.js";
 
 async function signup(req, res) {
   const response = await authModel.signup(req.body);
-  if (response.status === "ok") res.send(response);
+  if (response.status === "ok") res.status(201).json(response);
   else res.status(401).json(response);
 }
 

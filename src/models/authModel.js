@@ -17,7 +17,7 @@ async function login(email, password) {
     if (user && user.length !== 0) {
       const validPassword = await bcrypt.compare(password, user[0].password);
       if (validPassword) {
-        return { status: "success", user: user };
+        return { status: "ok", user: user };
       } else {
         return { status: "error", user: "wrong password" };
       }
